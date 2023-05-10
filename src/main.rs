@@ -3,7 +3,6 @@
 
 use std::sync::Mutex;
 
-use discord_presence::Client;
 use discord_rich_presence::{
     activity::{self, Assets},
     DiscordIpc, DiscordIpcClient,
@@ -19,7 +18,7 @@ pub struct DiscordPresence {
 
 impl DiscordPresence {
     pub fn new(application_id: u64) -> Self {
-        let mut client = Mutex::new(DiscordIpcClient::new(&application_id.to_string()).unwrap());
+        let client = Mutex::new(DiscordIpcClient::new(&application_id.to_string()).unwrap());
         Self { client }
     }
 
@@ -78,7 +77,7 @@ async fn main() {
         .setup(|app| {
             let window = app.get_window("main").unwrap();
 
-            let _ = window
+            window
                 .eval(
                     r#"
 
