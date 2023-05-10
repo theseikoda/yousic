@@ -1,0 +1,59 @@
+{
+  "build": {
+    "beforeDevCommand": "",
+    "beforeBuildCommand": "",
+    "devPath": "https://music.youtube.com",
+    "distDir": "",
+    "withGlobalTauri": true
+  },
+  "package": {
+    "productName": "yousic",
+    "version": "0.0.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "shell": {
+        "all": false,
+        "open": true
+      }
+    },
+    "bundle": {
+      "active": true,
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "identifier": "net.theseikoda.dev",
+      "targets": "all"
+    },
+    "security": {
+      "csp": "default-src blob: data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline';",
+      "dangerousRemoteDomainIpcAccess": [
+        {
+          "windows": [
+            "main"
+          ],
+          "domain": "music.youtube.com/",
+          "enableTauriAPI": true,
+          "scheme": ""
+        }
+      ]
+    },
+    "updater": {
+      "active": false
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "resizable": true,
+        "title": "Youtube Music (Unofficial)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}
