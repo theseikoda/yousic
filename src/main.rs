@@ -36,13 +36,15 @@ impl DiscordPresence {
                 activity::Activity::new()
                     .state(&state)
                     .details(&details)
-                    .assets(Assets::new().large_image(image)),
+                    .assets(Assets::new().large_image(image).large_text(&details)),
             )?;
         } else {
-            self.client
-                .lock()
-                .unwrap()
-                .set_activity(activity::Activity::new().state(&state).details(&details))?;
+            self.client.lock().unwrap().set_activity(
+                activity::Activity::new()
+                    .state(&state)
+                    .assets(Assets::new().small_text(&details))
+                    .details(&details),
+            )?;
         };
 
         Ok(())
