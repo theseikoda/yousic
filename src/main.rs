@@ -2,29 +2,12 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use discord_presence::DiscordPresence;
-use song::Song;
-use tauri::{Manager, State};
+use tauri::Manager;
+
+use crate::song::on_new_song_playing;
 
 mod discord_presence;
 mod song;
-
-#[tauri::command]
-fn on_new_song_playing(song: serde_json::Value, discord_presence: State<'_, DiscordPresence>) {
-    if let Some(current_song) = song.get("current_song") {
-        if let Ok(song) = serde_json::from_value::<Song>(current_song.clone()) {
-            let discord_presence = discord_presence.clone();
-
-            _ = discord_presence.update_presence(song);
-        } else {
-            println!("Couldn't parse received song data: {}", current_song);
-        }
-    } else {
-        println!(
-            "Received song data doesn't contain a 'current' key: {}",
-            song
-        );
-    }
-}
 
 #[tokio::main]
 async fn main() {
